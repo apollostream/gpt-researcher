@@ -251,7 +251,8 @@ class GenericLLMProvider:
             print('***')
             if not res:
                 print('====== EMPTY output.content =======')
-                print(output)
+                print(f'***OUTPUT:***\n{output}')
+                print(f'\n***MESSAGES:***\n{messages}')
 
         else:
             res = await self.stream_response(messages, websocket, **kwargs)
