@@ -243,9 +243,15 @@ class GenericLLMProvider:
     async def get_chat_response(self, messages, stream, websocket=None, **kwargs):
         if not stream:
             # Getting output from the model chain using ainvoke for asynchronous invoking
+            print('***\n')
             output = await self.llm.ainvoke(messages, **kwargs)
-
             res = output.content
+            if self.verbose:
+                print(f"{Fore.GREEN}{res}{Style.RESET_ALL}")
+            print('***')
+            if not res:
+                print('====== EMPTY output.content =======')
+                print(output)
 
         else:
             res = await self.stream_response(messages, websocket, **kwargs)
